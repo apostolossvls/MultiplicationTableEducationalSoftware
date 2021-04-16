@@ -5,6 +5,7 @@ using UnityEngine;
 public class MultItem : MonoBehaviour
 {
     private int x,y;
+    public Animator animator;
 
     public void SetTarget(){
         print("SetTarget call ("+gameObject.name+")");
@@ -19,6 +20,15 @@ public class MultItem : MonoBehaviour
         if (!(x < matrixX && y < matrixY)){
             Destroy(gameObject);
         }
+    }
+
+    void OnEnable(){
+        animator.SetTrigger("Popup");
+    }
+
+    public void DestroyItem(){
+        animator.SetTrigger("Destroy");
+        Destroy(gameObject, 0.5f);
     }
 
     public void SetCoordinates(int coX, int coY){

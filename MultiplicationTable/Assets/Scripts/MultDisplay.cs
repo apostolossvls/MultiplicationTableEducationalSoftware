@@ -32,7 +32,7 @@ public class MultDisplay : MonoBehaviour
         int newMult = newX*newY;
 
         MultItem[,] newItems = new MultItem[newX, newY];
-        print("setcall");
+        //print("setcall");
 
         for (int i = 0; i < x; i++)
         {
@@ -44,7 +44,8 @@ public class MultDisplay : MonoBehaviour
                 }
                 else{
                     //print("Destroy: "+i.ToString()+" x"+j.ToString());
-                    Destroy(items[i,j].gameObject);
+                    //Destroy(items[i,j].gameObject);
+                    items[i,j].DestroyItem();
                 }
             }
         }
@@ -101,6 +102,8 @@ public class MultDisplay : MonoBehaviour
 
     private MultItem CreateItem(int coX, int coY){
         GameObject g = GameObject.Instantiate(itemSample, itemStartT.position, itemStartT.rotation);
+        g.SetActive(true);
+        g.transform.SetParent(transform);
         MultItem item = g.GetComponent<MultItem>();
         item.SetCoordinates(coX, coY);
         return item;
