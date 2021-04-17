@@ -22,7 +22,7 @@ public class MultItem : MonoBehaviour
         }
     }
 
-    void OnEnable(){
+    public void Show(){
         animator.SetTrigger("Popup");
     }
 
@@ -31,10 +31,10 @@ public class MultItem : MonoBehaviour
         Destroy(gameObject, 0.5f);
     }
 
-    public void SetCoordinates(int coX, int coY){
+    public void SetCoordinates(int coX, int coY, float xSpace, float ySpace){
         x = coX;
         y = coY;
 
-        transform.position = new Vector3(x*2, transform.position.y, y*2);
+        transform.position = new Vector3(x*xSpace, transform.position.y, y*ySpace);
     }
 }
