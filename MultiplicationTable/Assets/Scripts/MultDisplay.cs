@@ -4,13 +4,28 @@ using UnityEngine;
 
 public class MultDisplay : MonoBehaviour
 {
+    public static MultDisplay instance; //singleton
     public GameObject itemSample;
-    public Transform itemStartT;
+    public Transform itemStartT, itemEndT;
     public float xSpace = 2, ySpace = 2;
     private MultItem[,] items;
     public int x=0, y=0, mult=0;
-    public int inputx, inputy;
+
+    [Header("Inspector Input")]
+    public int inputx;
+    public int inputy;
     private int oldX, oldY;
+    private Camera cam;
+
+    void Awake(){
+        //singleton
+        if (instance != null && instance != this){
+            Destroy(this);
+        }
+        else {
+            instance = this;
+        }
+    }
 
     void Start()
     {
@@ -18,6 +33,7 @@ public class MultDisplay : MonoBehaviour
         oldY = inputy;
         //create matrix
         items = new MultItem[x,y];
+        cam = Camera.main;
     }
 
     void Update()
@@ -30,6 +46,38 @@ public class MultDisplay : MonoBehaviour
         oldY = inputy;
     }
 
+    //get worldpoint, calculate matrix dimensions and call SetXY
+    public void MouseSetXY(Vector3 mousePos){
+        Vector3 pos = mousePos;
+        //subtract starting point of matrix
+        pos.x -= itemStartT.position.x;
+        pos.z -= itemStartT.position.z;
+
+        //if mouse position is giving negative values, set matrix to empty
+        if (pos.x < 0 || pos.z < 0){
+            SetXY(0,0);
+            return;
+        }
+
+        //get dimentions of matrix
+        //value <- biggest integer of (mouse position / space between items)
+        int mouseX = Mathf.CeilToInt((pos.x) / xSpace);
+        int mouseY = Mathf.CeilToInt((pos.z) / ySpace);
+
+        //if position x from mouse is bigger than end point, override to end x
+        if (pos.x > itemEndT.position.x){
+            mouseX = Mathf.CeilToInt((itemEndT.position.x) / xSpace);
+        }
+        //if position z from mouse is bigger than end point, override to end z
+        if (pos.z > itemEndT.position.z){
+            mouseY = Mathf.CeilToInt((itemEndT.position.z) / ySpace);
+        }
+
+        //call mtrix creation/update
+        SetXY(mouseX,mouseY);
+    }
+
+    //update matrix
     public void SetXY(int newX, int newY){
 
         int newMult = newX*newY;
