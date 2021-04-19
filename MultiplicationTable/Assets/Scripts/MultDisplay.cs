@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class MultDisplay : MonoBehaviour
 {
-    public static MultDisplay instance; //singleton
     public GameObject itemSample;
-    public Transform itemStartT, itemEndT;
+    public Transform itemStartT, itemEndT, itemLastT;
     public float xSpace = 2, ySpace = 2;
     private MultItem[,] items;
     public int x=0, y=0, mult=0;
@@ -17,16 +16,6 @@ public class MultDisplay : MonoBehaviour
     private int oldX, oldY;
     private Camera cam;
 
-    void Awake(){
-        //singleton
-        if (instance != null && instance != this){
-            Destroy(this);
-        }
-        else {
-            instance = this;
-        }
-    }
-
     void Start()
     {
         oldX = inputx;
@@ -34,6 +23,9 @@ public class MultDisplay : MonoBehaviour
         //create matrix
         items = new MultItem[x,y];
         cam = Camera.main;
+
+        //temp
+        SetXY(0,0);
     }
 
     void Update()
@@ -161,6 +153,13 @@ public class MultDisplay : MonoBehaviour
         y = newY;
         //set matrix to the new matrix
         items = newItems;
+
+        if (items.GetLength(0) > 0 && items.GetLength(1)>0){
+            itemLastT.position = items[items.GetLength(0)-1, items.GetLength(1)-1].transform.position;
+        }
+        else {
+            //itemLastT.position = itemStartT.position + new Vector3(xSpace,0,ySpace);
+        }
     }
 
     //create / clone new item (and gamobject) and setup

@@ -5,6 +5,7 @@ using UnityEngine;
 //when enabled, user has the ability to update the mupliplication matrix using his mouse
 public class MultClickGrid : MonoBehaviour
 {
+    [SerializeField] MultDisplay multDisplay;
     [SerializeField] LayerMask layerMask;
 
     void Update()
@@ -26,6 +27,6 @@ public class MultClickGrid : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 200f, layerMask)){
             clickPos = hit.point;
         }
-        MultDisplay.instance.MouseSetXY(clickPos);
+        multDisplay.MouseSetXY(clickPos);
     }
 }
