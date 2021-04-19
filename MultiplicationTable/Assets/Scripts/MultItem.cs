@@ -31,10 +31,10 @@ public class MultItem : MonoBehaviour
         Destroy(gameObject, 0.5f);
     }
 
-    public void SetCoordinates(int coX, int coY, float xSpace, float ySpace){
+    public void SetCoordinates(int coX, int coY, float posX, float posY){
         x = coX;
         y = coY;
 
-        transform.position = new Vector3(x*xSpace, transform.position.y, y*ySpace);
+        transform.position = new Vector3(posX, transform.position.y, posY);
     }
 }
