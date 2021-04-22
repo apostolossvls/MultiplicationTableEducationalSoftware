@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MultDisplay : MonoBehaviour
 {
-    public GameObject itemSample;
+    public AssetSelector itemSample;
     public Transform itemStartT, itemEndT, itemLastT;
     public float xSpace = 2, ySpace = 2;
     private MultItem[,] items;
@@ -164,8 +164,11 @@ public class MultDisplay : MonoBehaviour
 
     //create / clone new item (and gamobject) and setup
     private MultItem CreateItem(int coX, int coY){
+        //get random item from asset selector
+        GameObject sample = itemSample.GetRandom();
+        if (sample == null) {return null;}
         //clone
-        GameObject g = GameObject.Instantiate(itemSample, itemStartT.position, itemStartT.rotation);
+        GameObject g = GameObject.Instantiate(sample, itemStartT.position, itemStartT.rotation);
         g.SetActive(true); //show gameObject
         g.transform.SetParent(transform); //set parent so that it doesnt spam the hierarchy
         MultItem item = g.GetComponent<MultItem>(); //find MultItem component

@@ -1,12 +1,4 @@
-﻿public enum ProblemTimestampType
-{
-    Success,
-    Mistake,
-    ShowHelp,
-    CloseHelp
-}
-
-public class ProblemTimestamp
+﻿public class ProblemTimestamp
 {
     private float time;
     private ProblemTimestampType type;
@@ -15,4 +7,12 @@ public class ProblemTimestamp
         time = c_time;
         type = c_type;
     }
+}
+
+public enum ProblemTimestampType
+{
+    Success,
+    Mistake,
+    ShowHelp,
+    CloseHelp
 }
