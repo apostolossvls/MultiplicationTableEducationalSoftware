@@ -112,7 +112,7 @@ public class MultDisplay : MonoBehaviour
 
         int newMult = newX*newY;
 
-        print(newX+" ,"+newY);
+        //print(newX+" ,"+newY);
 
         //create new matrix, add already existing items from the old matrix
         //that can be included into the new matrix and delete others

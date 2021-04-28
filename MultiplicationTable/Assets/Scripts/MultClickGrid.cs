@@ -7,11 +7,12 @@ public class MultClickGrid : MonoBehaviour
 {
     [SerializeField] MultDisplay multDisplay;
     [SerializeField] LayerMask layerMask;
+    bool overUI = false;
 
     void Update()
     {
         //on left mouse down
-        if (Input.GetMouseButton(0)){
+        if (Input.GetMouseButton(0) && !overUI){
             MouseSetXY();
         }
     }
@@ -28,5 +29,13 @@ public class MultClickGrid : MonoBehaviour
             clickPos = hit.point;
         }
         multDisplay.MouseSetXY(clickPos);
+    }
+
+    public void PointerEnterUI(){
+        overUI = true;
+    }
+
+    public void PointerExitUI(){
+        overUI = false;
     }
 }
